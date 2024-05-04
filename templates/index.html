@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search in Files</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('https://images8.alphacoders.com/134/1348243.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0; 
+        }
+        .container {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.8); 
+            border-radius: 8px;
+            color: #333;
+            padding: 20px;
+            width: 100%;
+            max-width: 760px; 
+            overflow: hidden; 
+        }
+        .form-group label, .form-group input {
+            color: #333;
+        }
+        .form-control {
+            background-color: rgba(255, 255, 255, 0.9);
+            border: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .btn-primary {
+            background-color: #ff416c;
+            border-color: #ff416c;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .btn-primary:hover {
+            background-color: #ff4b2b;
+        }
+        .results-container {
+            max-height: 300px; 
+            overflow-y: auto; 
+            margin-top: 20px; 
+        }
+        .alert {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-left: 5px solid #ff416c;
+            margin-bottom: 10px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Logs Search</h1>
+        <form action="/search" method="post">
+            <div class="form-group">
+                <label for="text">Masukan username/domain/password:</label>
+                <input type="text" class="form-control" name="text" id="text" value="{{ query }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+            <p>Saat ini ada sekitar {{ folder_size }} data logs di database.</p> <!-- Display folder size -->
+        </form>
+        
+        <div class="results-container">
+            {% for result in results %}
+            <div class="alert alert-secondary">{{ result }}</div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
